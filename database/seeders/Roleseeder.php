@@ -1,0 +1,23 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+class Roleseeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        DB::table('roles')->insert([
+            ['role_name' => 'admin'],
+            ['role_name' => 'teacher'],
+            ['role_name' => 'student'],
+            ['role_name' => 'parent'],
+            ['role_name' => 'accountance'],
+        ]);
+    }
+}
