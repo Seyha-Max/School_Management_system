@@ -26,8 +26,7 @@ class RoleController extends Controller
     public function create(Request $request)
     {
         $validate = Validator($request->all() , [
-            'role_name' => 'required|in:admin,teacher,student,parent,accountance|unique:roles,role_name'
-        ]);
+            'role_name' => 'required|in:admin,teacher,student']);
         if($validate->fails()){
             return response()->json([
                 'status' => false,
@@ -55,11 +54,11 @@ class RoleController extends Controller
      */
     public function show(Role $role , $id)
     {
-        $rolse = Role::findOrFail($id);
+        $role = Role::findOrFail($id);
         return response()->json([
             'status' => true,
             'message' => 'Role retrieved successfully',
-            'data' => $rolse
+            'data' => $role
         ]);
     }
 
@@ -77,8 +76,7 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $validate = Validator($request->all() , [
-            'role_name' => 'required|in:admin,teacher,student,parent,accountance|unique:roles,role_name,' . $role->id
-        ]);
+            'role_name' => 'required|in:admin,teacher,student' . $role->id]);
         if($validate->fails()){
             return response()->json([
                 'status' => false,

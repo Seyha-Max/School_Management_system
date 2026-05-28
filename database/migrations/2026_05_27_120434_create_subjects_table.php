@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
-            $table->string('subject_name')->unique();
-            $table->string('subject_code')->unique();
+            $table->enum('subject_name',['khmer','mathematics','chemistry','physics','biology','history','geography','moral','english']);
             $table->timestamps();
         });
     }
