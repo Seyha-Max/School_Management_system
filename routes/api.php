@@ -1,7 +1,18 @@
 <?php
 
+use App\Http\Controllers\ClassesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SectionsController;
+use App\Http\Controllers\StudentAttendanceController;
+use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\SubjectsController;
+use App\Http\Controllers\TeacherAttendanceController;
+use App\Http\Controllers\TeacherClassesController;
+use App\Http\Controllers\TeacherSalariesController;
+use App\Http\Controllers\TeachersController;
+use App\Http\Controllers\TeacherSubjectsController;
+use App\Http\Controllers\Usercontroller;
 
 // 1. role
 Route::controller(RoleController::class)->group(function(){
@@ -13,7 +24,7 @@ Route::controller(RoleController::class)->group(function(){
 });
 
 // 2. class
-Route::controller(RoleController::class)->group(function(){
+Route::controller(ClassesController::class)->group(function(){
     Route::get('/class' , 'index')->name('class.index');
     Route::get('/class/{id}' , 'show')->name('class.show');
     Route::post('/class' , 'store')->name('class.store');
@@ -22,7 +33,7 @@ Route::controller(RoleController::class)->group(function(){
 });
 
 // 3. section
-Route::controller(RoleController::class)->group(function(){
+Route::controller(SectionsController::class)->group(function(){
     Route::get('/section' , 'index')->name('section.index');
     Route::get('/section/{id}' , 'show')->name('section.show');
     Route::post('/section' , 'store')->name('section.store');
@@ -31,7 +42,7 @@ Route::controller(RoleController::class)->group(function(){
 });
 
 // 4. teacher
-Route::controller(RoleController::class)->group(function(){
+Route::controller(TeachersController::class)->group(function(){
     Route::get('/teacher' , 'index')->name('teacher.index');
     Route::get('/teacher/{id}' , 'show')->name('teacher.show');
     Route::post('/teacher' , 'store')->name('teacher.store');
@@ -40,7 +51,7 @@ Route::controller(RoleController::class)->group(function(){
 });
 
 // 5. student
-Route::controller(RoleController::class)->group(function(){
+Route::controller(StudentsController::class)->group(function(){
     Route::get('/student' , 'index')->name('student.index');
     Route::get('/student/{id}' , 'show')->name('student.show');
     Route::post('/student' , 'store')->name('student.store');
@@ -49,7 +60,7 @@ Route::controller(RoleController::class)->group(function(){
 });
 
 // 6. subject
-Route::controller(RoleController::class)->group(function(){
+Route::controller(SubjectsController::class)->group(function(){
     Route::get('/subject' , 'index')->name('subject.index');
     Route::get('/subject/{id}' , 'show')->name('subject.show');
     Route::post('/subject' , 'store')->name('subject.store');
@@ -58,7 +69,7 @@ Route::controller(RoleController::class)->group(function(){
 });
 
 // 7. teacher_class
-Route::controller(RoleController::class)->group(function(){
+Route::controller(TeacherClassesController::class)->group(function(){
     Route::get('/tclass' , 'index')->name('tclass.index');
     Route::get('/tclass/{id}' , 'show')->name('tclass.show');
     Route::post('/tclass' , 'store')->name('tclass.store');
@@ -67,7 +78,7 @@ Route::controller(RoleController::class)->group(function(){
 });
 
 // 8. teacher_subject
-Route::controller(RoleController::class)->group(function(){
+Route::controller(TeacherSubjectsController::class)->group(function(){
     Route::get('/tsubject' , 'index')->name('tsubject.index');
     Route::get('/tsubject/{id}' , 'show')->name('tsubject.show');
     Route::post('/tsubject' , 'store')->name('tsubject.store');
@@ -76,7 +87,7 @@ Route::controller(RoleController::class)->group(function(){
 });
 
 // 9. teacher_attendance
-Route::controller(RoleController::class)->group(function(){
+Route::controller(TeacherAttendanceController::class)->group(function(){
     Route::get('/tattendance' , 'index')->name('tattendance.index');
     Route::get('/tattendance/{id}' , 'show')->name('tattendance.show');
     Route::post('/tattendance' , 'store')->name('tattendance.store');
@@ -85,7 +96,7 @@ Route::controller(RoleController::class)->group(function(){
 });
 
 // 10. teacher_salary
-Route::controller(RoleController::class)->group(function(){
+Route::controller(TeacherSalariesController::class)->group(function(){
     Route::get('/tsalary' , 'index')->name('tsalary.index');
     Route::get('/tsalary/{id}' , 'show')->name('tsalary.show');
     Route::post('/tsalary' , 'store')->name('tsalary.store');
@@ -94,7 +105,7 @@ Route::controller(RoleController::class)->group(function(){
 });
 
 // 11. student_attendance
-Route::controller(RoleController::class)->group(function(){
+Route::controller(StudentAttendanceController::class)->group(function(){
     Route::get('/sattendance' , 'index')->name('sattendance.index');
     Route::get('/sattendance/{id}' , 'show')->name('sattendance.show');
     Route::post('/sattendance' , 'store')->name('sattendance.store');
@@ -103,7 +114,7 @@ Route::controller(RoleController::class)->group(function(){
 });
 
 // 12. user
-Route::controller(RoleController::class)->group(function(){
+Route::controller(Usercontroller::class)->group(function(){
     Route::get('/user' , 'index')->name('user.index');
     Route::get('/user/{id}' , 'show')->name('user.show');
     Route::post('/user' , 'store')->name('user.store');

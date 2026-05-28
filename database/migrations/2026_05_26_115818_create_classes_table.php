@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
-            $table->string('class_name')->unique();
+            $table->enum('class_name',['G101','G102','G103','G104','G105','G106','G107','G108','G109','G110']);
             $table->timestamps();
         });
     }

@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('gender');
+            $table->string('firstname',50);
+            $table->string('lastname',50);
+            $table->enum('gender',['male','female']);
             $table->date('dob');
-            $table->string('phone');
-            $table->string('address');
+            $table->string('phone',50);
+            $table->string('address',50);
             $table->foreignId('class_id')->constrained('classes')->onDelete('cascade');
             $table->foreignId('section_id')->constrained('sections')->onDelete('cascade');
-            $table->string('parent_name');
-            $table->string('parent_phone');
+            $table->string('parent_name',50);
+            $table->string('parent_phone',50);
             $table->string('profile_image')->nullable();
             $table->timestamps();
         });
