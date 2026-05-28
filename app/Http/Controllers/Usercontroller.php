@@ -19,7 +19,7 @@ class Usercontroller extends Controller
     public function create(Request $request){
         $validate = Validator($request->all() , [
             'name' => 'required|string',
-            'email' => 'required|email|unique:users, email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
             'role_id' => 'required|exists:roles,id',
             'status' => 'required|in:active,inactive'
