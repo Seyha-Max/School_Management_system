@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subjects extends Model
 {
-    protected $fillable = ['subject_name','subject_code'];
+    protected $fillable = ['subject_name'];
     public function teachers()
         {
             return $this->belongsToMany(Teachers::class, 'teacher_subjects','subject_id','teacher_id'

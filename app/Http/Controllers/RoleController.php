@@ -25,7 +25,15 @@ class RoleController extends Controller
      */
     public function create(Request $request)
     {
-        $validate = Validator($request->all() , [
+   
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+             $validate = Validator($request->all() , [
             'role_name' => 'required|in:admin,teacher,student']);
         if($validate->fails()){
             return response()->json([
@@ -39,14 +47,6 @@ class RoleController extends Controller
             'message' => 'Role created successfully',
             'data' => $role
         ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

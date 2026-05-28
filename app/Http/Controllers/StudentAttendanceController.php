@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Student_attendance;
 use Illuminate\Http\Request;
-
+use Psy\Readline\Hoa\_Protocol\Stream\InOut;
+use Illuminate\Support\Facades\Validator;
 class StudentAttendanceController extends Controller
 {
     /**
@@ -28,7 +29,21 @@ class StudentAttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = Validator::make($request->all() , [
+            'student_id' => 'required|exists:students,id',
+            'date' => 'required|date',
+            'status' => 'required|in:present,absent,late',
+        ]);
+        
+        if($validate->fails()){
+            return response()->json($validate->errors(),400);
+        }
+        $attendance = Student_attendance::create($validate->validated());
+        return response()->json([
+            'status' => true,
+            'message' => 'Attendance recorded successfully',
+            'data' => $attendance
+        ]);
     }
 
     /**
@@ -36,7 +51,12 @@ class StudentAttendanceController extends Controller
      */
     public function show(Student_attendance $student_attendance)
     {
-        //
+        $attendance = Student_attendance::findOrFail($student_attendance->id);
+        return response()->json([
+            'status' => true,
+            'message' => 'Attendance retrieved successfully',
+            'data' => $attendance
+        ]);
     }
 
     /**
