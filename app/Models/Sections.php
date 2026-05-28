@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sections extends Model
 {
-    //
+    protected $fillable = ['class_id', 'section_name'];
 }
