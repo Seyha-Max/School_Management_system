@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2);
             $table->date('payment_date');
             $table->string('payment_method')->nullable();
-            $table->enum('status', ['paid', 'pending']);
+            $table->enum('status',['paid','pending']);
             $table->text('notes')->nullable();
             $table->timestamps();
         });
