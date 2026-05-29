@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 class Usercontroller extends Controller
 {
 
-
     public function index(){
         $user = User::all();
         return response()->json([
@@ -16,11 +15,11 @@ class Usercontroller extends Controller
             'data' => $user
         ]);
     }
-    public function create(Request $request){
+    public function store(Request $request){
         $validate = Validator($request->all() , [
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:6',
             'role_id' => 'required|exists:roles,id',
             'status' => 'required|in:active,inactive'
         ]);

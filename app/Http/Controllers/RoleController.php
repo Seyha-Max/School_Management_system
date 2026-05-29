@@ -21,9 +21,9 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created resource in storage.
      */
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $validate = Validator($request->all() , [
             'role_name' => 'required|in:admin,teacher,student']);
@@ -39,14 +39,6 @@ class RoleController extends Controller
             'message' => 'Role created successfully',
             'data' => $role
         ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

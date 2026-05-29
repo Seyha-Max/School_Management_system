@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ClassesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
@@ -51,6 +52,17 @@ Route::controller(TeachersController::class)->group(function(){
 });
 
 // 5. student
+
+// Route::middleware(['auth:sanctum','role:admin'])->group(function(){
+//     Route::controller(StudentsController::class)->group(function(){
+//         Route::get('/student' , 'index')->name('student.index');
+//         Route::get('/student/{id}' , 'show')->name('student.show');
+//         Route::post('/student' , 'store')->name('student.store');
+//         Route::put('/student/{id}' , 'update')->name('student.update');
+//         Route::delete('/student/{id}' , 'destroy')->name('student.destroy');
+//     });
+// });
+
 Route::controller(StudentsController::class)->group(function(){
     Route::get('/student' , 'index')->name('student.index');
     Route::get('/student/{id}' , 'show')->name('student.show');
@@ -121,3 +133,6 @@ Route::controller(Usercontroller::class)->group(function(){
     Route::put('/user/{id}' , 'update')->name('user.update');
     Route::delete('/user/{id}' , 'destroy')->name('user.destroy');
 });
+
+Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+Route::post('/login',  [AuthController::class, 'login'])->name('login.post');
