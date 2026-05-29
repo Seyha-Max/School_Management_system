@@ -13,7 +13,12 @@ class StudentAttendanceController extends Controller
      */
     public function index()
     {
-        //
+        $attendance = Student_attendance::all();
+        return response()->json([
+            'status' => true,
+            'message' => 'Attendance records retrieved successfully',
+            'data' => $attendance
+        ]);
     }
 
     /**
@@ -72,7 +77,21 @@ class StudentAttendanceController extends Controller
      */
     public function update(Request $request, Student_attendance $student_attendance)
     {
-        //
+        $validate = Validator::make($request->all() , [
+            'student_id' => 'sometimes|required|exists:students,id',
+            'date' => 'sometimes|required|date',
+            'status' => 'sometimes|required|in:present,absent,late',
+        ]);
+        
+        if($validate->fails()){
+            return response()->json($validate->errors(),400);
+        }
+        $student_attendance->update($validate->validated());
+        return response()->json([
+            'status' => true,
+            'message' => 'Attendance updated successfully',
+            'data' => $student_attendance
+        ]);
     }
 
     /**
@@ -80,6 +99,11 @@ class StudentAttendanceController extends Controller
      */
     public function destroy(Student_attendance $student_attendance)
     {
-        //
+        $student_attendance = Student_attendance::findOrFail($student_attendance->id);
+        $student_attendance->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'Attendance deleted successfully'
+        ]);
     }
 }

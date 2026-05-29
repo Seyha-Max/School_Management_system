@@ -109,8 +109,8 @@ class TeacherSalariesController extends Controller
      */
     public function destroy(Teacher_salaries $teacher_salaries)
     {
-        $teacher_salaries = Teacher_salaries::findOrFail($teacher_salaries->id);
-        $teacher_salaries->delete();
+        $teacher_salary = Teacher_salaries::findOrFail($teacher_salaries->id);
+        $teacher_salary->delete();
         return response()->json([
             'status' => true,
             'message' => 'Teacher salary record deleted successfully'

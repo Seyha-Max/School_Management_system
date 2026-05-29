@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Teacher_classes;
 use Illuminate\Http\Request;
-
+use Psy\Readline\Hoa\_ProtocolException;
+use Validator;
 class TeacherClassesController extends Controller
 {
     /**
@@ -12,7 +13,12 @@ class TeacherClassesController extends Controller
      */
     public function index()
     {
-        //
+        $teacher_classes = Teacher_classes::all();
+        return response()->json([
+            'status' => true,
+            'message' => 'Teacher-class relationships retrieved successfully',
+            'data' => $teacher_classes
+        ]);
     }
 
     /**
@@ -28,7 +34,20 @@ class TeacherClassesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = Validator::make($request->all() , [
+            'teacher_id'=>'required|integer|exists:teachers,id',
+            'class_id'=>'required|integer|exists:classes,id',
+        ]);
+        
+        if($validate->fails()){
+            return response()->json($validate->errors(),400);
+        }
+        $teacher_class = Teacher_classes::create($validate->validated());
+        return response()->json([
+            'status' => true,
+            'message' => 'Teacher-class relationship created successfully',
+            'data' => $teacher_class
+        ]);
     }
 
     /**
@@ -36,7 +55,12 @@ class TeacherClassesController extends Controller
      */
     public function show(Teacher_classes $teacher_classes)
     {
-        //
+        $teacher_class = Teacher_classes::findOrFail($teacher_classes->id);
+        return response()->json([
+            'status' => true,
+            'message' => 'Teacher-class relationship retrieved successfully',
+            'data' => $teacher_class
+        ]);
     }
 
     /**
@@ -52,7 +76,20 @@ class TeacherClassesController extends Controller
      */
     public function update(Request $request, Teacher_classes $teacher_classes)
     {
-        //
+        $validate = Validator::make($request->all() , [
+            'teacher_id'=>'required|integer|exists:teachers,id',
+            'class_id'=>'required|integer|exists:classes,id',
+        ]);
+        
+        if($validate->fails()){
+            return response()->json($validate->errors(),400);
+        }
+        $teacher_classes->update($validate->validated());
+        return response()->json([
+            'status' => true,
+            'message' => 'Teacher-class relationship updated successfully',
+            'data' => $teacher_classes
+        ]);
     }
 
     /**
@@ -60,6 +97,11 @@ class TeacherClassesController extends Controller
      */
     public function destroy(Teacher_classes $teacher_classes)
     {
-        //
+        $teacher_class = Teacher_classes::findOrFail($teacher_classes->id);
+        $teacher_class->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'Teacher-class relationship deleted successfully'
+        ]);
     }
 }

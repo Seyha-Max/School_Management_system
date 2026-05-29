@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Teacher_subjects;
 use Illuminate\Http\Request;
-
+use Psy\Readline\Hoa\_ProtocolException;
+use Validator;
 class TeacherSubjectsController extends Controller
 {
     /**
@@ -12,7 +13,12 @@ class TeacherSubjectsController extends Controller
      */
     public function index()
     {
-        //
+        $teacher_subjects = Teacher_subjects::all();
+        return response()->json([
+            'status' => true,
+            'message' => 'Teacher-subject relationships retrieved successfully',
+            'data' => $teacher_subjects
+        ]);
     }
 
     /**
@@ -28,7 +34,19 @@ class TeacherSubjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = Validator::make($request->all() , [
+            'teacher_id'=>'required|integer|exists:teachers,id',
+            'subject_id'=>'required|integer|exists:subjects,id',
+        ]); 
+        if($validate->fails()){
+            return response()->json($validate->errors(),400);
+        }
+        $teacher_subject = Teacher_subjects::create($validate->validated());
+        return response()->json([
+            'status' => true,
+            'message' => 'Teacher-subject relationship created successfully',
+            'data' => $teacher_subject
+        ]);
     }
 
     /**
@@ -36,7 +54,12 @@ class TeacherSubjectsController extends Controller
      */
     public function show(Teacher_subjects $teacher_subjects)
     {
-        //
+        $teacher_subject = Teacher_subjects::findOrFail($teacher_subjects->id);
+        return response()->json([
+            'status' => true,
+            'message' => 'Teacher-subject relationship retrieved successfully',
+            'data' => $teacher_subject
+        ]);
     }
 
     /**
@@ -52,7 +75,19 @@ class TeacherSubjectsController extends Controller
      */
     public function update(Request $request, Teacher_subjects $teacher_subjects)
     {
-        //
+        $validate = Validator::make($request->all() , [
+            'teacher_id'=>'required|integer|exists:teachers,id',
+            'subject_id'=>'required|integer|exists:subjects,id',
+        ]); 
+        if($validate->fails()){
+            return response()->json($validate->errors(),400);
+        }
+        $teacher_subjects->update($validate->validated());
+        return response()->json([
+            'status' => true,
+            'message' => 'Teacher-subject relationship updated successfully',
+            'data' => $teacher_subjects
+        ]);
     }
 
     /**
@@ -60,6 +95,11 @@ class TeacherSubjectsController extends Controller
      */
     public function destroy(Teacher_subjects $teacher_subjects)
     {
-        //
+        $teacher_subject = Teacher_subjects::findOrFail($teacher_subjects->id);
+        $teacher_subject->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'Teacher-subject relationship deleted successfully'
+        ]);
     }
 }

@@ -21,7 +21,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created resource in storage.
      */
     public function create(Request $request)
     {
